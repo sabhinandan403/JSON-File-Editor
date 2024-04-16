@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <title>Asset Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: #3c25bf;">
+                <div class="navbar-collapse navbar">
+                    <form class="d-flex mx-2">
+                        <a class="navbar-brand" href="/newDashboard">Asset Management</a>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a onclick="" class="nav-link" id="add-asset" style="font-size: 1rem;" style="cursor: pointer;">Request New Asset
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/logout" class="nav-icon pe-md-8" id="logout"
+                                style="color: #ffffff;margin-right: 5px" onclick="logout()">
+                                <span id="user-name" style="font-size: 1rem; margin-left: 10px;"></span>
+                                <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 1rem;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" onclick="logout()">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4 id="role"> Allocated Assets Data</h4>
+                    </div>
+                    <!-- Form Element -->
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <!-- Table Element -->
+                            <div class="table-responsive" style="height: 200px;">
+                                <table class="table table-primary table-hover table-striped "
+                                    id="asset-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" id="asset-id">Asset ID</th>
+                                            <th scope="col" id="total-allocated-assets-header">Asset Category</th>
+                                            <th scope="col" id="asset-vendor">Asset Vendor</th>
+                                            <th scope="col" id="asset-assigned-at">Assigned At</th>
+                                            <th scope="col" id="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table data will be filled dynamically from JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <main class="content px-3 py-2" style="margin-top:10px;">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4 id="role">Asset Issues</h4>
+                    </div>
+                    <!-- Form Element -->
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <!-- Table Element -->
+                            <div class="table-responsive" style="height: 200px;">
+                                <table class="table table-primary table-hover table-striped align-middle"
+                                    id="issues-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" id="issue-id">Issue ID</th>
+                                            <th scope="col" id="issue-type">Issue type</th>
+                                            <th scope="col" id="asset-category">Asset Category</th>
+                                            <th scope="col" id="resolved-rasied-at">Raised At</th>
+                                            <th scope="col" id="resolved-issue-status">Issue Status</th>
+                                            <th scope="col" id="resolved-action">Modified By</th>
+                                            <th scope="col" id="resolved-action">Modified At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table data will be filled dynamically from JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+
+        <!-- Request New Asset Modal -->
+        <div class="modal fade" id="requestAssetModal" tabindex="-1" aria-labelledby="requestAssetModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="requestAssetModalLabel">Request New Asset</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="requestAssetForm">
+                            <div class="mb-3">
+                                <label for="requestAssetCategory" class="form-label">Asset Category</label>
+                                <select class="form-select" id="requestAssetCategory" name="requestAssetCategory" required>
+                                    <option value="" disabled selected>Select Asset Category</option>
+                                    <!-- Options will be dynamically added here -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="requestAssetVendor" class="form-label">Asset Vendor</label>
+                                <select class="form-select" id="requestAssetVendor" name="requestAssetVendor" required>
+                                    <option value="" disabled selected>Select Asset Vendor</option>
+                                    <!-- Options will be dynamically added here -->
+                                </select>
+                            </div>
+
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Request Asset</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Issue Modal -->
+        <div class="modal fade" id="reportIssueModal" tabindex="-1" aria-labelledby="reportIssueModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reportIssueModalLabel">Report Issue</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="reportIssueForm" >
+                            <div class="mb-3">
+                                <label for="issueAssetId" class="form-label">Asset ID</label>
+                                <input type="text" class="form-control" id="reportAssetId" name="reportAssetId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="issueAssetCategory" class="form-label">Asset Category</label>
+                                <input type="text" class="form-control" id="reportAssetCategory" name="reportAssetCategory" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="issueType" class="form-label">Issue Type</label>
+                                <select class="form-select" id="reportIssueType" name="reportIssueType" required>
+                                    <option value="" disabled selected>Select Issue Type</option>
+                                    <!-- Options will be dynamically added here -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="issueDescription" class="form-label">Issue Description</label>
+                                <textarea class="form-control" id="reportIssueDescription" name="reportIssueDescription" rows="3"
+                                    required></textarea>
+                            </div>
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/employeePortal.js"></script>
+</body>
+
+</html>

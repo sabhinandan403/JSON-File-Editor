@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <title>Asset Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="/css/registerUser.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: #3c25bf;">
+        <div class="navbar-collapse navbar">
+          <form class="d-flex mx-2">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+              style="display: block; color: #fff; background-color: #3c25bf;" data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon" style=" color: #fff; background-color: #3c25bf; display: none;"></span>
+              <i class="fas fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/newDashboard" style="margin-left: 10px;">Asset Management</a>
+
+          </form>
+          <ul class="navbar-nav">
+            <!-- <li class="nav-item">
+              <a onclick="" class="nav-link" id="add-asset" style="font-size: 1rem;">Register New
+                Asset</a>
+            </li> -->
+            <li class="nav-item ">
+              <a href="/logout" class="nav-icon pe-md-8" id="logout" style="color: #ffffff;margin-right: 5px">
+                <span style="margin-right: 5px; font-size: 1rem;">Logout</span><i
+                  class="fa-solid fa-arrow-right-from-bracket" style="font-size: 1rem;"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+
+                <a class="dropdown-item" onclick="logout()">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header" style="background-color: #3c25bf; height: 73px;">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Asset Management</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" style="color: #fff;" aria-current="page" href="/newDashboard">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" style="color: #fff;" aria-current="page" href="/trackIssues">Track Issues</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #fff;" href="/addVendor">Add Vendor</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <main class="content px-3 py-2">
+        <div class="container-fluid">
+          <div class="mb-3">
+            <h4 id="role">Register User</h4>
+          </div>
+
+          <!-- Form Element -->
+          <div class="card border-0">
+            <div class="card-body">
+              <form id="registrationForm"
+                style="max-width: 300px; margin: auto; padding: 20px; border: 1px solid #fff;">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+                <!-- New Dropdown for User Role -->
+                <div class="mb-3">
+                  <label for="userRoleDropdown" class="form-label">User Role</label>
+                  <select class="form-select" id="userRoleDropdown" name="userRole" required>
+                    <!-- Options will be dynamically added here -->
+                  </select>
+                </div>
+                <!-- Password Field -->
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                    required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="registerUserForm">Register</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+    <!-- Register New Asset Modal -->
+
+
+  </div>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/registerUser.js"></script>
+</body>
+
+</html>

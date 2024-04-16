@@ -1,0 +1,11 @@
+{
+  "DB_SERVER": "http://postgres-server",
+  "DB_PORT": 5432,
+  "DB_NAME": "yamahasaetgweryhj",
+  "AMQP_IP": "127.0.0.1",
+  "NETWORK_NAME": "default_network",
+  "MODE": "Mode2",
+  "IS_TESTING_ENABLED": false,
+  "WEDQWE": "wqeqwq",
+  "QWEQWEQ": 1212
+}

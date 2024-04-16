@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <title>Asset Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: #3c25bf;">
+                <div class="navbar-collapse navbar">
+                    <form class="d-flex mx-2">
+                        <a class="navbar-brand" href="/dashboard">Asset Management</a>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="/signup" class="nav-link" id="add-user" style="font-size: 1rem; position: relative;">
+                                <i class="fa-solid fa-bell"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="issue-number">
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/signup" class="nav-link" id="add-user" style="font-size: 1rem;">Add
+                                Vendor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/signup" class="nav-link" id="add-user" style="font-size: 1rem;">Add
+                                User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="" class="nav-link" id="add-asset" style="font-size: 1rem;">Register
+                                New Asset</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/logout" class="nav-icon pe-md-8" id="logout"
+                                style="color: #ffffff;margin-right: 5px" onclick="logout()">
+                                <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 1rem;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" onclick="logout()">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4 id="role">Asset Data</h4>
+                    </div>
+                    <!-- Form Element -->
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <!-- Table Element -->
+                            <div class="table-responsive">
+                                <table class="table table-primary table-hover table-striped align-middle"
+                                    id="property-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" id="total-asset-count-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Asset Count</th>
+                                            <th scope="col" id="total-allocated-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Allocated Assets</th>
+                                            <th scope="col" id="total-unallocated-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Unallocated Assets</th>
+                                            <th scope="col" id="total-laptop-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Laptop</th>
+                                            <th scope="col" id="total-dongle-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Dongle</th>
+                                            <th scope="col" id="total-mobile-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Mobile</th>
+                                            <th scope="col" id="total-desktop-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Desktop</th>
+                                            <th scope="col" id="total-oss-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total OSS Assets</th>
+                                            <th scope="col" id="total-eti-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total ETI Assets</th>
+                                            <th scope="col" id="total-sap-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total SAP Assets</th>
+                                            <th scope="col" id="total-yna-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total YNA Assets</th>
+                                            <th scope="col" id="total-microsoft-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Microsoft Assets</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table data will be filled dynamically from JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Asset Details Modal -->
+        <div class="modal fade" id="assetDetailsModal" tabindex="-1" aria-labelledby="assetDetailsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: fit-content; overflow-y: auto;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="assetDetailsModalLabel">Asset Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-primary  table-striped" id="assetDetailsTable"
+                                style="overflow-y: auto;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Asset ID</th>
+                                        <th scope="col">Asset Category</th>
+                                        <th scope="col">Asset Status</th>
+                                        <th scope="col">Allocated To</th>
+                                        <th scope="col">Team</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Created By</th>
+                                        <th scope="col">Modified By</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table data will be filled dynamically from JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add this modal after the assetDetailsModal   VIEW HISTORY MODAL-->
+        <div class="modal fade" id="viewAssetHistoryModal" tabindex="-1" aria-labelledby="viewAssetHistoryModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewAssetHistoryModalLabel">Asset History</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive ">
+                            <table class="table table-primary table-bordered table-striped" id="assetHistoryTable">
+                                <thead>
+                                    <tr>
+                                        <!-- <th scope="col">History ID</th> -->
+                                        <!-- <th scope="col">Asset ID</th> -->
+                                        <th scope="col">Asset Category</th>
+                                        <th scope="col">Asset Status</th>
+                                        <th scope="col">Modified At</th>
+                                        <th scope="col">Created By</th>
+                                        <th scope="col">Allocated To</th>
+                                        <th scope="col">Modified By</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table data will be filled dynamically from JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this modal after the viewAssetHistoryModal -->
+        <div class="modal fade" id="updateAssetModal" tabindex="-1" aria-labelledby="updateAssetModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateAssetModalLabel">Update Asset</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form for updating asset details -->
+                        <form id="updateAssetForm">
+                            <!-- Input fields for asset details -->
+                            <div class="mb-3">
+                                <label for="assetId" class="form-label">Asset ID</label>
+                                <input type="text" class="form-control" id="assetId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="assetCategory" class="form-label">Asset Category</label>
+                                <input type="text" class="form-control" id="assetCategory" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="assetStatus" class="form-label">Asset Status</label>
+                                <select class="form-select" id="assetStatus" required>
+                                    <!-- Dropdown options will be dynamically populated here -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="allocatedTo" class="form-label">Allocated To</label>
+                                <input type="text" class="form-control" id="allocatedTo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="team" class="form-label">Team</label>
+                                <!-- <input type="text" class="form-control" id="team"> -->
+                                <select class="form-select" id="team" required>
+                                    <!-- <option id="OSS">OSS</option>
+                                    <option id="YNA">YNA</option>
+                                    <option id="SAP">SAP</option> 
+                                    <option id="ETI">ETI</option>
+                                    <option id="Microsoft">Microsoft</option> -->
+                                </select>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Register New Asset Modal -->
+        <div class="modal fade" id="registerAssetModal" tabindex="-1" aria-labelledby="registerAssetModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerAssetModalLabel">Register New Asset</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="registerAssetForm" class="bg-primary">
+                            <div class="mb-3">
+                                <label for="newAssetCategory" class="form-label">Asset Category</label>
+                                <select class="form-select" id="newAssetCategory" name="assetCategory" required>
+                                    <option value="" disabled selected>Select Asset Category</option>
+                                    <!-- Options will be dynamically added here -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newAssetStatus" class="form-label">Asset Status</label>
+                                <select class="form-select" id="newAssetStatus" name="newAssetStatus" required>
+                                    <option value="" disabled selected>Select Asset Status</option>
+                                    <!-- Options will be dynamically added here -->
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="team" class="form-label">Team</label>
+                                <select class="form-select" id="newTeam" name="team" required>
+                                    <option value="" disabled selected>Select Team</option>
+                                    <option id="OSS">OSS</option>
+                                    <option id="YNA">YNA</option>
+                                    <option id="SAP">SAP</option>
+                                    <option id="ETI">ETI</option>
+                                    <option id="Microsoft">Microsoft</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="allocatedTo" class="form-label">Allocated To</label>
+                                <input type="text" class="form-control" id="newAllocatedTo" name="allocatedTo"
+                                    placeholder="Allocated To">
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Register Asset</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+{
+  "DB_SERVER": "http:postgres-server",
+  "DB_PORT": 5432,
+  "DB_NAME": "postgres",
+  "AMQP_IP": "127.0.0.1",
+  "ACTIVE_OUTPUT_MODULE": "{Module1}",
+  "NETWORK_NAME": "default-network",
+  "MODE": "Mode1",
+  "IS_TESTING_ENABLED": false
+}

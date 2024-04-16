@@ -1,0 +1,15 @@
+{
+  "db_server": "http://postgres-server",
+  "db_port": 5432,
+  "db_name": "yamaha",
+  "amqp_ip": "127.0.0.1",
+  "active_output_module": [
+    "Module1",
+    "Module2"
+  ],
+  "network_name": "default_network",
+  "mode": "Mode1",
+  "is_testing_enabled": true,
+  "databasetable": "JsonFileEditor",
+  "client_name": "Yamaha"
+}

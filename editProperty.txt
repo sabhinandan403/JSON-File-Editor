@@ -1,0 +1,152 @@
+// document.addEventListener("DOMContentLoaded", async function () {
+
+//     // Add event listener for logout
+     
+//     });
+//     // Get editPropertyData from localStorage
+//     const editPropertyData = JSON.parse(localStorage.getItem('editProperty'));
+//     console.log(editPropertyData);
+
+//     // Check if editPropertyData exists
+//     if (editPropertyData) {
+//         // Fill values in input fields
+//         var uppercasePropertyName = (editPropertyData.editPropertyName)
+        
+//         uppercasePropertyName = uppercasePropertyName.toUpperCase();
+//         document.getElementById('propertyName').value = uppercasePropertyName;
+
+//         console.log(editPropertyData.editPropertyValue)
+
+//         // Check if editPropertyName is active_output_module
+//         if (editPropertyData.editPropertyName === 'active_output_module') {
+//             document.getElementById('activeOutputModuleOptions').style.display = 'block';
+//             const selectedModules = editPropertyData.editPropertyValue.split(',');
+//             selectedModules.forEach(module => {
+//                 document.getElementById(module.toLowerCase()).checked = true;
+//             });
+//         }
+
+//         // Check if editPropertyName is mode
+//         else if (editPropertyData.editPropertyName === 'mode') {
+//             document.getElementById('modeOptions').style.display = 'block';
+//             document.getElementById('modeDropdown').value = editPropertyData.editPropertyValue;
+//         }
+
+//         // For other cases, show default text input
+//         else {
+//             document.getElementById('propertyValue').style.display = 'block';
+//             document.getElementById('propertyValue').value = editPropertyData.editPropertyValue;
+//         }
+//     }
+
+//     // Add event listener on Save button
+//     document.getElementById('editPropertyForm').addEventListener('submit', async function (event) {
+//         event.preventDefault();
+
+//         // Get updated property value based on the input type
+//         let newPropertyValue;
+//         if (editPropertyData.editPropertyName === 'active_output_module') {
+//             const selectedModules = Array.from(document.querySelectorAll('input[name="modules[]"]:checked')).map(module => module.value);
+//             newPropertyValue = selectedModules.join(',');
+//         } else if (editPropertyData.editPropertyName === 'mode') {
+//             newPropertyValue = document.getElementById('modeDropdown').value;
+//         } else {
+//             newPropertyValue = document.getElementById('propertyValue').value;
+//         }
+
+//         // Show SweetAlert confirmation dialog
+//         const confirmEdit = await Swal.fire({
+//             icon: 'question',
+//             title: 'Confirm Edit',
+//             text: 'Do you want to save changes?',
+//             showCancelButton: true,
+//             confirmButtonText: 'Save Changes',
+//             cancelButtonText: 'Discard Changes',
+//         });
+
+//         if (confirmEdit.isConfirmed) {
+
+//             try {
+//                 // Call fetch API to update property
+//                 const response = await fetch('http://localhost:3000/jsonfileeditor/updateproperty', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify({
+//                         user_id: localStorage.getItem('user_id'),
+//                         email:localStorage.getItem('email'),
+//                         columnname: editPropertyData.editPropertyName,
+//                         newValue: newPropertyValue,
+//                     }),
+//                 });
+
+//                 if (response.ok) {
+//                     // Redirect to localhost:3000/home on success
+//                     window.location.href = 'http://localhost:3000/home';
+//                 }
+//             } catch (error) {
+//                 console.error('Error:', error);
+//                 // Show failure modal on fetch error
+//                 $('#failureModal').modal('show');
+//             }
+//         } else {
+//             // User clicked 'Discard Changes', redirect to localhost:3000/home
+//             window.location.href = 'http://localhost:3000/home';
+//         }
+//     })
+
+
+//     // Add event listener to redirect to localhost:3000/home on OK button click in failure modal
+//     document.getElementById('failureModalOKBtn').addEventListener('click', function () {
+//         window.location.href = 'http://localhost:3000/home';
+//     });
+//     function preventBackNavigation(replaceState=false) {
+//         if (window.history.replaceState) {
+//             window.history.replaceState(null, null, window.location.href);
+//         }
+//     }
+
+//     document.getElementById('logout').addEventListener('click', function () {
+//         logout();
+//     // Function to handle logout
+//     async function logout() {
+//         try {
+//             const response = await fetch('http://localhost:3000/logout', {
+//                 method: 'GET',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 credentials: 'include',  // Include credentials for session handling
+//             })
+
+//             if (response.ok) {
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'Successfull',
+//                     text:'Logged out successfully'
+//                 });
+
+//                 setTimeout(()=>{
+//                     //preventBackNavigation(true);
+//                     window.location.href = ('http://localhost:3000/login') //
+//                 },2000) 
+                
+//             } else {
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Error',
+//                     text:'Cannot log out'
+//                 });
+//                 console.error('Error logging out')
+//             }
+//         } catch (error) {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text:'Internal Server Error'
+//             });
+//             console.log('Error:', error)
+//         }
+//     }
+// });

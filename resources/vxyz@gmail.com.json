@@ -1,0 +1,28 @@
+{
+  "DB_NAME": "yamaha",
+  "AMQP_IP": "127.0.0.1",
+  "ACTIVE_OUTPUT_MODULE": [
+    "Module1",
+    "Module3",
+    "Module4"
+  ],
+  "NETWORK_NAME": "default_network",
+  "CLIENT_NAME": "{\"ymsli\",\"ymus\"}",
+  "ASDASDA": "{\"sad\",\"asdasd\"}",
+  "NEW_DB": "Yamaha",
+  "COMPANY_NAME": [
+    "q"
+  ],
+  "TRY": [
+    "as",
+    "asdasd",
+    "cazx"
+  ],
+  "ASDFASF": [
+    "a",
+    "s"
+  ],
+  "SEDWW": [
+    "werwe"
+  ]
+}

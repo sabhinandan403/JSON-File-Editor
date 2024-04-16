@@ -1,0 +1,10 @@
+{
+  "DB_PORT": 5432,
+  "DB_NAME": "yamaha",
+  "AMQP_IP": "127.0.0.1",
+  "ACTIVE_OUTPUT_MODULE": [
+    "Module1"
+  ],
+  "MODE": "Mode3",
+  "CLIENT_NAME": "123"
+}

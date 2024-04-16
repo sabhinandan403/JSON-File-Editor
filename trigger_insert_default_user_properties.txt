@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION insert_default_user_properties()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    -- Insert row for active_output_module
+    INSERT INTO user_property_mapping (user_id, property_name, property_type, property_options)
+    VALUES (NEW.user_id, 'active_output_module', 'ARRAY(CHECKBOXES)', '{"Module1","Module2","Module3","Module4","Module5"}');
+
+    -- Insert row for mode
+    INSERT INTO user_property_mapping (user_id, property_name, property_type, property_options)
+    VALUES (NEW.user_id, 'mode', 'DROPDOWN', '{"Mode1","Mode2","Mode3"}');
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER after_user_insert
+AFTER INSERT ON user_master
+FOR EACH ROW
+EXECUTE PROCEDURE insert_default_user_properties();

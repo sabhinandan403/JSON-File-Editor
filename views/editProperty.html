@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <title>Json File Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/css/editProperty.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: #3c25bf;">
+                <div class="navbar-collapse navbar">
+                    <form class="d-flex mx-2">
+                        <a class="navbar-brand" href="/home">JSON File Editor</a>
+                       
+                    </form>
+                    <ul class="navbar-nav">
+            
+                        <li class="nav-item ">
+                            <a href="#"  class="nav-icon pe-md-8" id="logout" style="color: #ffffff;margin-right: 5px">
+                                <span style="margin-right: 5px; font-size: 1rem;">Logout</span><i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 1rem;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+
+                                <a class="dropdown-item" onclick="logout()">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4 id="role">JSON File Data</h4>
+                    </div>
+                    <!-- Form Element -->
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <form id="editPropertyForm"
+                                style="max-width: 300px; margin: auto; padding: 20px; border: 1px solid #fff;">
+                                <div class="mb-3">
+                                    <label for="propertyName" class="form-label">Property Name</label>
+                                    <input type="text" class="form-control" id="propertyName" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="propertyValue" class="form-label">Property Value</label>
+                                    <!-- Multiple selection checkboxes for active_output_module -->
+                                    <div id="activeOutputModuleOptions" style="display: none;">
+                                        <!-- <input type="checkbox" id="module1" name="modules[]" value="Module1">
+                                        <label for="module1">Module1</label>
+                                        <input type="checkbox" id="module2" name="modules[]" value="Module2">
+                                        <label for="module2">Module2</label>
+                                        <input type="checkbox" id="module3" name="modules[]" value="Module3">
+                                        <label for="module3">Module3</label>
+                                        <input type="checkbox" id="module4" name="modules[]" value="Module4">
+                                        <label for="module4">Module4</label>
+                                        <input type="checkbox" id="module5" name="modules[]" value="Module5">
+                                        <label for="module5">Module5</label> -->
+                                    </div>
+                                    <!-- Dropdown for mode -->
+                                    <div id="modeOptions" style="display: none;">
+                                        <select class="form-select" id="modeDropdown" name="mode">
+                                            <!-- <option value="Mode1">Mode1</option>
+                                            <option value="Mode2">Mode2</option>
+                                            <option value="Mode3">Mode3</option>
+                                            <option value="Mode4">Mode4</option> -->
+                                        </select>
+                                    </div>
+                                    <!-- Default text input for other cases -->
+                                    <input type="text" class="form-control" id="propertyValue" name="propertyValue"
+                                        style="display: none;">
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="saveChanges">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- Failure Modal -->
+        <div class="modal fade" id="failureModal" tabindex="-1" aria-labelledby="failureModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="failureModalLabel">Update Failed</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        There was an error updating the property. Please try again.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="failureModalOKBtn">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/editProperty.js"></script>
+</body>
+
+</html>

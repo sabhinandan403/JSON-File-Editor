@@ -1,0 +1,7 @@
+{
+  "DB_SERVER": "http://postgres-server",
+  "DB_PORT": 543289,
+  "DB_NAME": "yamaha",
+  "AMQP_IP": "127.0.0.1",
+  "IS_TESTING_ENABLED": false
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css"> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <link rel="stylesheet" href="/css/registerUser.css">
+  <title>JSON File Editor</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card_title">
+        <h1>Create Account</h1>
+        <span>Already have an account? <a href="/login">Sign In</a></span>
+      </div>
+      <div class="form">
+        <form id="registrationForm">
+          <input type="text" name="username" id="username" placeholder="Username" required />
+          <input type="email" name="email" placeholder="Email" id="email" required />
+          <input type="password" name="password" placeholder="Password" id="password" required>
+          <input type="text" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword" required />
+          <button type="button" onclick="registerUser()">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="toast-container"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+  <script src="/js/registerUser.js"></script>
+</body>
+
+</html>

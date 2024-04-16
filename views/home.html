@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <title>Json File Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: #3c25bf;">
+                <div class="navbar-collapse navbar">
+                    <form class="d-flex mx-2">
+                        <a class="navbar-brand" href="/home">JSON File Editor</a>
+
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a onclick="" class="nav-link" id="add-property-link" style="font-size: 1rem;">Add
+                                Property</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-icon pe-md-8" id="logout" style="color: #ffffff;margin-right: 5px" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span style="margin-right: 5px; font-size: 1rem;">Logout</span>
+                                <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 1rem;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" onclick="logout()">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4 id="role">JSON File Data</h4>
+                    </div>
+                    <!-- Table Element -->
+                    <div class="card border-0">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Properties and their value
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <table class="table" id="property-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Property Name</th>
+                                        <th scope="col">Value</th>
+                                        <th scope="col">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Add Property Modal-->
+    <div class="modal fade" id="addPropertyModal" tabindex="-1" aria-labelledby="addPropertyModalToggleLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseLabel">Add New Property</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="newPropertyForm" class="my-3">
+                        <div class="mb-3">
+                            <label for="newColumnName" class="form-label">Property</label>
+                            <input type="text" class="form-control" id="newColumnName" name="newColumnName" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Property Data Type:</label>
+                            <select class="form-select me-2" id="filterColumn" name="newColumnType">
+                                <option value="VARCHAR">STRING</option>
+                                <option>BOOLEAN</option>
+                                <option>INTEGER</option>
+                                <option>INET</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newColumnValue" class="form-label">Value</label>
+                            <!-- <input type="text" class="form-control" id="newPropertyValue" name="newColumnValue" required> -->
+                            <div id="propertyValueContainer"></div>
+                        </div>
+                        <!-- Add Checkbox button -->
+                        <button type="button" class="btn btn-secondary me-2" id="addCheckboxBtn"
+                            style="margin-bottom: 10px; display: none;">Add
+                            Checkbox Item</button>
+                        <!-- Add Checkbox button -->
+                        <button type="button" class="btn btn-secondary me-2" id="addDropdownBtn"
+                            style="margin-bottom: 10px; display: none;">Add
+                            Dropdown Item</button>
+                        <button type="submit" class="btn btn-primary" id="newPropertyBtn"
+                            data-bs-target="#addPropertyModal2" style="display: float;">Add Property</button>
+                    </form>
+
+                </div>
+            </div>
+            <!-- Add Property Modal 2-->
+            <div class="modal fade" id="addPropertyModal2" aria-hidden="true"
+                aria-labelledby="addPropertyModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="addPropertyForm">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="propertyName" class="form-label">Property Name</label>
+                                    <input type="text" class="form-control" id="propertyName" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="propertyType" class="form-label">Property Type</label>
+                                    <input type="text" class="form-control" id="propertyType" readonly>
+                                </div>
+                                <div class="mb-3" id="enterValue"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" id="addPropertyBtn">Add Property</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/js/home.js"></script>
+
+</body>
+
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <title>Asset Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/css/editProperty.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: #3c25bf;">
+                <div class="navbar-collapse navbar">
+                    <form class="d-flex mx-2">
+                        <a class="navbar-brand" href="/home">Asset Management</a>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a onclick="" class="nav-link" id="add-user" style="font-size: 1rem;">Add
+                                User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="" class="nav-link" id="add-new-asset" style="font-size: 1rem;">Register
+                                New Asset</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-icon pe-md-8" id="logout"
+                                style="color: #ffffff;margin-right: 5px">
+                                <span style="margin-right: 5px; font-size: 1rem;">Logout</span><i
+                                    class="fa-solid fa-arrow-right-from-bracket" style="font-size: 1rem;"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" onclick="logout()">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4 id="role">JSON File Data</h4>
+                    </div>
+                    <!-- Form Element -->
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <!-- Table Element -->
+                            <div class="table-responsive">
+                                <table class="table" id="property-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" id="total-asset-count-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Asset Count</th>
+                                            <th scope="col" id="total-allocated-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Allocated Assets</th>
+                                            <th scope="col" id="total-unallocated-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Unallocated Assets</th>
+                                            <th scope="col" id="total-laptop-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Laptop</th>
+                                            <th scope="col" id="total-dongle-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Dongle</th>
+                                            <th scope="col" id="total-mobile-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Mobile</th>
+                                            <th scope="col" id="total-desktop-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Desktop</th>
+                                            <th scope="col" id="total-sap-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total SAP Assets</th>
+                                            <th scope="col" id="total-eti-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total ETI Assets</th>
+                                            <th scope="col" id="total-oss-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total OSS Assets</th>
+                                            <th scope="col" id="total-microsoft-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total Microsoft Assets</th>
+                                            <th scope="col" id="total-yna-assets-header" data-bs-toggle="modal"
+                                                data-bs-target="#assetDetailsModal">Total YNA Assets</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table data will be filled dynamically from JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- Failure Modal -->
+        <div class="modal fade" id="failureModal" tabindex="-1" aria-labelledby="failureModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="failureModalLabel">Update Failed</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        There was an error updating the property. Please try again.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="failureModalOKBtn">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Asset Details Modal -->
+        <div class="modal fade" id="assetDetailsModal" tabindex="-1" aria-labelledby="assetDetailsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="assetDetailsModalLabel">Asset Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table" id="assetDetailsTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Asset ID</th>
+                                        <th scope="col">Asset Category</th>
+                                        <th scope="col">Asset Status</th>
+                                        <th scope="col">Asset Allocated To</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Created By</th>
+                                        <th scope="col">Modified By</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table data will be filled dynamically from JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/editProperty.js"></script>
+</body>
+
+</html>
